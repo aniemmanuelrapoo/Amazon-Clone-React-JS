@@ -4,9 +4,9 @@ import tw from 'twin.macro'
 import { useStateValue } from '../StateProvider'
 
 const CheckOutProductCon = styled.div`
-    ${tw`flex`}
+    ${tw`flex my-5`}
     img{
-        ${tw`object-contain w-44 h-44`}
+        ${tw`object-contain w-20 h-20 md:w-44 md:h-44`}
     }
 `
 const CheckOutProductInfo = styled.div`
@@ -18,7 +18,7 @@ const CheckOutProductInfo = styled.div`
         color: #111;
     }
     p{
-        ${tw`text-lg font-extrabold`}
+        ${tw`md:text-lg font-extrabold`}
     }
 `
 const CheckOutProductRate = styled.div`
@@ -26,7 +26,7 @@ const CheckOutProductRate = styled.div`
 `
 
 const CheckOutProduct = ({id, title, image, price, rating}) => {
-    const [{ basket }, dispatch] = useStateValue();
+    const [, dispatch] = useStateValue();
     const removeFromBasket = () => {
         dispatch({
             type: 'REMOVE_FROM_BASKET',
