@@ -27,7 +27,7 @@ const SubTotalSmall= styled.small`
 `
 
 const SubTotal = () => {
-    const [{ basket }, dispatch] = useStateValue();
+    const [{ basket }] = useStateValue();
     return (
         <SubTotalContainer>
             <CurrencyFormat
