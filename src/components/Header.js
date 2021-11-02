@@ -7,6 +7,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import '../styles/generalStyles.css'
 import { useStateValue } from '../StateProvider'
+import { auth } from '../firebase'
 
 const NavContainer = styled.nav`
     ${tw`flex items-center sticky top-0 z-50 shadow-2xl`}
@@ -29,8 +30,12 @@ const HeaderOptionLine2 = styled.span`
 const HeaderOptionBasket = styled.span`${tw`flex items-center`}`
 
 const Header = () => {
-    const [{ basket }] = useStateValue();
-    console.log(basket)
+    const [{ basket, user }] = useStateValue();
+    const login = () => {
+        if(user) {
+            auth.signOut();
+        }
+    }
     return (
         <NavContainer>
             <Link to="/"><img src={logo} alt="" /></Link>
@@ -39,10 +44,10 @@ const Header = () => {
                 <SearchIcon className="header__searchIcon" />
             </HeaderSearch>
            <HeaderNav>
-                <Link to="/login" className="">
-                    <HeaderOption>
-                        <HeaderOptionLine1>Hello Rapoo</HeaderOptionLine1>
-                        <HeaderOptionLine2>Sign In</HeaderOptionLine2>
+                <Link to={!user && "/login"} className="">
+                    <HeaderOption onClick={login}>
+                        <HeaderOptionLine1>Hello {user?.email}</HeaderOptionLine1>
+                        <HeaderOptionLine2>{user ? 'Sign Out' : 'Sign In'}</HeaderOptionLine2>
                     </HeaderOption>
                 </Link>
                 <Link to="/" className="">
